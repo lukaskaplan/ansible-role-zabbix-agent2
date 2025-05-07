@@ -1,2 +1,3 @@
 ---
-# defaults file for ansible-role-zabbix-agent2
+# Supported versions are: 6.0, 6.1, 6.2, 6.3, 6.4, 6.5, 7.0, 7.2, 7.4
+zabbix_agent2_version: "7.2"

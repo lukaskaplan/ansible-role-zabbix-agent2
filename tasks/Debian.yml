@@ -1,0 +1,48 @@
+- name: Fail if unsupported version
+  ansible.builtin.fail:
+    msg: "Zabbix version {{ zabbix_agent2_version }} is not supported."
+  when: zabbix_agent2_version|string not in ['6.0', '6.1', '6.2', '6.3', '6.4', '6.5', '7.0', '7.2', '7.4']
+
+- name: Set Zabbix repo URL - base part for 6.0 - 7.0
+  ansible.builtin.set_fact:
+    repo_url_base: "https://repo.zabbix.com/zabbix/{{ zabbix_agent2_version }}"
+  when: zabbix_agent2_version is version('7.2', '<')
+
+- name: Set Zabbix repo URL - base part for 7.2 and newer
+  ansible.builtin.set_fact:
+    repo_url_base: "https://repo.zabbix.com/zabbix/{{ zabbix_agent2_version }}/release"
+  when: zabbix_agent2_version is version('7.2', '>=')
+
+- name: Set Zabbix repo URL - path part
+  ansible.builtin.set_fact:
+    repo_url_path: "/debian/pool/main/z/zabbix-release/zabbix-release_latest_"
+
+- name: Set Zabbix repo URL - filename part
+  ansible.builtin.set_fact:
+    repo_url_filename: "{{ zabbix_agent2_version }}+debian{{ ansible_distribution_major_version }}_all.deb"
+
+- name: Set Zabbix repo URL - complete
+  ansible.builtin.set_fact:
+    repo_url: "{{ repo_url_base }}{{ repo_url_path }}{{ repo_url_filename }}"
+
+- name: Debug repo URL
+  ansible.builtin.debug:
+    var: repo_url
+
+- name: Remove zabbix-agent (v1)
+  ansible.builtin.apt:
+    name:
+      - zabbix-agent
+    state: absent
+    purge: true
+    update_cache: true
+
+- name: Install Zabbix repo .deb
+  ansible.builtin.apt:
+    deb: "{{ repo_url }}"
+    update_cache: true
+
+- name: Install zabbix-agent2
+  ansible.builtin.apt:
+    name: zabbix-agent2
+    state: present
