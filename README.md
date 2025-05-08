@@ -1,4 +1,6 @@
-# ansible-role-zabbix-agent2
+# Ansible role: zabbix_agent2
+
+[![CI](https://github.com/lukaskaplan/ansible-role-zabbix-agent2/actions/workflows/ci.yml/badge.svg)](https://github.com/lukaskaplan/ansible-role-zabbix-agent2/actions/workflows/ci.yml)
 
 This role installs zabbix_agent2.
 
