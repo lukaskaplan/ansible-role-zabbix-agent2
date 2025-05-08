@@ -2,5 +2,4 @@ exclude_paths:
   - .github/
   - .git/
   - .venv/
-  - .ansible-lint
   - .ansible/
