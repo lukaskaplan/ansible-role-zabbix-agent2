@@ -1,18 +1,32 @@
-# Ansible role: zabbix_agent2
+Ansible role: zabbix_agent2
+=========
 
 [![CI](https://github.com/lukaskaplan/ansible-role-zabbix-agent2/actions/workflows/ci.yml/badge.svg)](https://github.com/lukaskaplan/ansible-role-zabbix-agent2/actions/workflows/ci.yml)
 
-This role installs zabbix_agent2.
+Ansible role which installs zabbix_agent2. It makes a basic confogration too.
+
+Supported zabbix_agent2 versions: `6.0` to `7.4`
+
+Requirements
+------------
 
 Supported OS:
- - Debian 12
- - Debian 11
 
-Supported zabbix_agent2 versions: 6.0 to 7.4
+- Debian 12
+- Debian 11
 
----
+Role Variables
+--------------
 
-## Installation
+All config options are described in the `defaults/main.yml` file.
+
+Dependencies
+------------
+
+None
+
+Installation
+------------
 
 Edit **requirements.yml** file:
 
@@ -26,17 +40,14 @@ roles:
 ansible-galaxy install -r requirements.yml
 ```
 
-## Configuration
+Example Playbook
+----------------
 
-All config options are described in the `defaults/main.yml` file.
-
-## Usage
-
-Example of ansible **playbook.yml**
+File **playbook.yml**:
 
 ```yaml
-- name: Zabbix_agent2 installation
-  hosts: host
+- name: Example playbook
+  hosts: servers
 
   tasks:
     - name: Role zabbix_agent2
@@ -48,8 +59,18 @@ Example of ansible **playbook.yml**
         zabbix_agent2_serveractive: x.x.x.x
 ```
 
-Run it:
+How to run it:
 
 ```bash
 ansible-playbook playbook.yml
 ```
+
+License
+-------
+
+MIT
+
+Author Information
+------------------
+
+This role was created by [Lukas Kaplan](https://lkaplan.cz).
