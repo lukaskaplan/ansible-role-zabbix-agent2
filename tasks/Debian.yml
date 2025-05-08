@@ -17,6 +17,7 @@
 - name: Install zabbix-agent2
   ansible.builtin.apt:
     name: zabbix-agent2
+    update_cache: true
     state: present
 
 - name: Set psk file path if not defined and psk connection is used

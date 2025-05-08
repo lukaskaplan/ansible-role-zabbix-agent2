@@ -28,6 +28,5 @@
 - name: Install Zabbix repo .deb
   ansible.builtin.apt:
     deb: "{{ repo_url }}"
-    update_cache: true
 
 ...
