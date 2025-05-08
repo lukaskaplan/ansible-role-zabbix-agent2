@@ -20,6 +20,10 @@ roles:
     src: https://github.com/lukaskaplan/ansible-role-zabbix-agent2.git
 ```
 
+```bash
+ansible-galaxy install -r requirements.yml
+```
+
 ## Configuration
 
 All config options are described in the `defaults/main.yml` file.
