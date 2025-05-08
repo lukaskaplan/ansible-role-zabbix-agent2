@@ -46,3 +46,38 @@
   ansible.builtin.apt:
     name: zabbix-agent2
     state: present
+
+- name: Set psk file path if not defined and psk connection is used
+  ansible.builtin.set_fact:
+    zabbix_agent2_tlspskfile: "/etc/zabbix/psk.txt"
+  when:
+    - zabbix_agent2_tlspskfile | length == 0
+    - zabbix_agent2_tlsconnect == 'psk' or zabbix_agent2_tlsaccept == 'psk'
+
+- name: Configure psk.txt
+  ansible.builtin.template:
+    src: psk.txt.j2
+    dest: "{{ zabbix_agent2_tlspskfile }}"
+    owner: root
+    group: root
+    mode: '0644'
+  when: zabbix_agent2_tlsconnect == 'psk' or zabbix_agent2_tlsaccept == 'psk'
+
+- name: Configure zabbix-agent2.conf
+  ansible.builtin.template:
+    src: zabbix_agent2.conf.j2
+    dest: /etc/zabbix/zabbix_agent2.conf
+    force: true
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Enable zabbix-agent2.service
+  ansible.builtin.systemd:
+    name: zabbix-agent2.service
+    enabled: true
+
+- name: Restart zabbix-agent2.service
+  ansible.builtin.systemd:
+    name: zabbix-agent2.service
+    state: restarted

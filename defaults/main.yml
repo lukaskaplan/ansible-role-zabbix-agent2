@@ -1,3 +1,29 @@
 ---
 # Supported versions are: 6.0, 6.1, 6.2, 6.3, 6.4, 6.5, 7.0, 7.2, 7.4
 zabbix_agent2_version: "7.2"
+
+zabbix_agent2_server: ""
+
+zabbix_agent2_serveractive: ""
+
+# unencrypted, psk
+zabbix_agent2_tlsconnect: unencrypted
+
+# unencrypted, psk
+zabbix_agent2_tlsaccept: unencrypted
+
+# Pre-shared key identity string.
+#   Do not put sensitive information in the PSK identity,
+#   it is transmitted unencrypted over the network to inform a receiver which PSK to use.
+zabbix_agent2_tlspskidentity: ""
+
+# Pre-shared key (hex-string).
+#   Maximum length:
+#     - 512 hex-digits (256-byte PSK) if Zabbix uses GnuTLS or OpenSSL library
+#     - 64 hex-digits (32-byte PSK) if Zabbix uses mbed TLS (PolarSSL) library.
+#   It will be stored in the TLSPSKFile as plain text
+zabbix_agent2_tlspskfile_key: ""
+
+# Full pathname of a file containing the pre-shared key.
+#   e.q. /etc/zabbix/psk.txt
+zabbix_agent2_tlspskfile: ""
